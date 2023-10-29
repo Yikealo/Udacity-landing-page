@@ -72,7 +72,14 @@ const  makeActive = () => {
 }
 
 // Scroll to anchor ID using scrollTO event
-
+const ScrollToSection = (event) => {
+    //make sure that nav item for the section are the once being clicked
+    //not other area of the nav bar
+    if(event.target.tagName.toLowerCase() == 'li'){
+        const section = document.querySelector(`[data-nav="${event.target.innerHTML}"]`);
+        section.scrollIntoView({ behavior: "smooth"});
+    }
+}
 
 /**
  * End Main Functions
@@ -83,7 +90,8 @@ const  makeActive = () => {
 // Build menu 
 window.addEventListener('load', buildNav );
 // Scroll to section on link click
-
+const ulNav = document.getElementById('navbar__list');
+ulNav.addEventListener('click', ScrollToSection);
 // Set sections as active
 window.addEventListener('scroll', makeActive);
 
