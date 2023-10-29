@@ -56,7 +56,20 @@ const buildNav= () => {
 }
 
 // Add class 'active' to section when near top of viewport
-
+const  makeActive = () => {
+    console.log("We are here");
+    const sections =  document.querySelectorAll('section');
+    const VALUE = 150;
+    for (const section of sections) {
+        const box = section.getBoundingClientRect();
+        
+        if (box.top <= VALUE && box.bottom >= VALUE) {
+            section.classList.add('active');
+        } else {
+            section.classList.remove('active');
+        }
+    }
+}
 
 // Scroll to anchor ID using scrollTO event
 
@@ -72,5 +85,6 @@ window.addEventListener('load', buildNav );
 // Scroll to section on link click
 
 // Set sections as active
+window.addEventListener('scroll', makeActive);
 
 
