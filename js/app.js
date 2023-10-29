@@ -39,7 +39,21 @@
 */
 
 // build the nav
+const buildNav= () => {
+    const navUl = document.getElementById('navbar__list');
+    const fragment = document.createDocumentFragment();
+    const sections =  document.querySelectorAll('section');
 
+    //add each nav bar item to the fragment for performace purpose
+    sections.forEach(section => {
+        const li = document.createElement('li');
+        li.innerHTML = section.dataset.nav
+        li.classList.add('menu__link')
+        fragment.appendChild(li);
+    })
+
+    navUl.appendChild(fragment);
+}
 
 // Add class 'active' to section when near top of viewport
 
@@ -54,7 +68,7 @@
 */
 
 // Build menu 
-
+window.addEventListener('load', buildNav );
 // Scroll to section on link click
 
 // Set sections as active
