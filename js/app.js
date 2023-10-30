@@ -29,7 +29,14 @@
  * Start Helper Functions
  * 
 */
+//Reset all the section and navigation items to not be active
+const cleanActive = () => {
+    const navItems = document.querySelectorAll('.menu__link');
+    const sections = document.querySelectorAll('section');
 
+    navItems.forEach(navitem => navitem.classList.remove('active'));
+    sections.forEach(section => section.classList.remove('active'));
+}
 
 
 /**
@@ -48,6 +55,7 @@ const buildNav= () => {
     sections.forEach(section => {
         const li = document.createElement('li');
         li.innerHTML = section.dataset.nav
+        li.dataset.sectionid = section.id;
         li.classList.add('menu__link')
         fragment.appendChild(li);
     })
@@ -60,13 +68,13 @@ const  makeActive = () => {
     console.log("We are here");
     const sections =  document.querySelectorAll('section');
     const VALUE = 150;
+    cleanActive();
     for (const section of sections) {
         const box = section.getBoundingClientRect();
         
         if (box.top <= VALUE && box.bottom >= VALUE) {
             section.classList.add('active');
-        } else {
-            section.classList.remove('active');
+            document.querySelector(`.menu__link[data-sectionid="${section.id}"]`).classList.add('active');
         }
     }
 }
@@ -76,7 +84,10 @@ const ScrollToSection = (event) => {
     //make sure that nav item for the section are the once being clicked
     //not other area of the nav bar
     if(event.target.tagName.toLowerCase() == 'li'){
+        cleanActive();
+        event.target.classList.add('active')
         const section = document.querySelector(`[data-nav="${event.target.innerHTML}"]`);
+        section.classList.add('active');
         section.scrollIntoView({ behavior: "smooth"});
     }
 }
